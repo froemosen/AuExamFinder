@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>froemosen homepage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/templates.js" defer></script>
+    <script src="static/script.js" defer></script>
+  </head>
+  <body>
+      <section class="hero is-primary">
+        <div class="hero-body has-text-centered">
+            <div class="container">
+                <button class="button" style="position: absolute; top: 20px; right: 20px;" onclick="window.location.href='/'">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <span>Home</span>
+                </button>
+                <h1 class="title is-1">froemosen</h1>
+                <h2 class="subtitle"><i class="fa-solid fa-file-alt"></i> My public CV <i class="fa-solid fa-file-alt"></i></h2> 
+            </div>
+        </div>
+        </section>
+
+        <section class="section">
+            <h1 class="title has-text-centered">Curriculum Vitae</h1>
+            <h3 class="subtitle has-text-centered">Generated with LinkedIn <i class="fa-brands fa-linkedin"></i></h3>
+            <embed class="pdf" src="/api/cv" type="application/pdf" width="80%" height="900px" style="display: block; margin: 0 auto;"/>
+        </section>
+
+        <footer class="footer has-text-centered">
+        <p>© 2025 froemosen / Kristian Anton Hedegaard
+        <br>
+        <a href="https://www.linkedin.com/in/kristian-anton-hedegaard/" target="_blank">LinkedIn</a> | 
+        <a href="https://github.com/froemosen" target="_blank">GitHub</a> |
+        <a onclick = "cookies()">Cookie Policy</a>
+        </p>
+        </footer> 
+  </body>
+</html>
