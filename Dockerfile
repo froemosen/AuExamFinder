@@ -5,14 +5,13 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 
 # Install Python dependencies
-COPY backend/requirements.txt /app/backend/requirements.txt
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+COPY backend/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the project
 COPY . /app
 
-EXPOSE 5000
+EXPOSE 8000
 
-# Run the Flask development server
-ENV FLASK_APP=backend.app
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+# expose internal port 8000 for Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "backend.app:app"]
