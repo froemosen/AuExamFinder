@@ -3,5 +3,15 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "8000:8000"
     restart: unless-stopped
+
+  flask:
+    build: .
+    container_name: flask-backend
+    networks:
+      - tunnel
+    expose:
+      - "8000"          # internal port for cloudflared to reach
+    environment:
+      - FLASK_ENV=production
