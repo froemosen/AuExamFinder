@@ -1,7 +1,6 @@
 import os
-from flask import Flask, render_template, jsonify, send_file, current_app, abort, request
+from flask import Flask, render_template, request
 import requests
-from werkzeug.utils import safe_join
 from datetime import datetime
 
 # Note: template_folder and static_folder point to the frontend directory
@@ -65,6 +64,4 @@ def isAfterSummer():
         return True
     return False
 
-if __name__ == "__main__":
-    # Use Flask dev server for local debugging; Docker runs the Flask CLI (flask run)
-    app.run(host="0.0.0.0", port=5000, debug=True)
+
