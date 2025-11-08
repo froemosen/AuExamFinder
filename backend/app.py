@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, jsonify, send_file, current_app, abort
+from flask import Flask, render_template, jsonify, send_file, current_app, abort, request
+import requests
 from werkzeug.utils import safe_join
 
 # Note: template_folder and static_folder point to the frontend directory
@@ -10,37 +11,51 @@ app = Flask(__name__, static_folder="../frontend/static", template_folder="../fr
 def index():
     return render_template("index.html")
 
-@app.route("/cv")
-def cv():
-    return render_template("cv.html")
+@app.route("/proxy_skema", methods=["POST"])
+def proxy_skema():
+    """
+    function handleSubmit(event) {
+    event.preventDefault();  // Prevent the default form submission
 
-i = 0
-@app.route("/api/hello")
-def hello():
-    global i
-    i += 1
-    return jsonify({"message": "Hello from Flask backend!", "count": i})
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
 
-@app.route("/api/cv")
-def cv_api():
-    file_path = os.path.join(current_app.root_path, "LinkedinCV.pdf")
-    if not os.path.exists(file_path):
-        abort(404)
-    return send_file(file_path, mimetype="application/pdf", as_attachment=False)
+    fetch("https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENV", {
+        method: "POST",
+        headers: {
+            "Origin": "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENV&sprog=da",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(data).toString()
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok " + response.statusText);
+        }
+    })
+    .then(data => {
+        // Handle the response data
+        console.log("Success:", data);
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+}
+"""
 
-@app.route("/api/get_image/<filename>")
-def get_image(filename):
-    file_path = safe_join(current_app.root_path, "assets", filename)
-    if not os.path.exists(file_path):
-        abort(404)
-    return send_file(file_path, mimetype="image/jpeg", as_attachment=False)
+    url = "https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENV"
+    form_data = request.form.to_dict()
 
-@app.route("/api/get_sound/<filename>")
-def get_sound(filename):
-    file_path = safe_join(current_app.root_path, "assets", filename)
-    if not os.path.exists(file_path):
-        abort(404)
-    return send_file(file_path, mimetype="audio/mp3", as_attachment=False)
+    try:
+        response = requests.post(url, data=form_data)
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+    except requests.RequestException as e:
+        return f"An error occurred while contacting the remote server: {e}", 500
+    
+    print(response.content)
+
+    return (response.content, response.status_code, response.headers.items())
+
 
 if __name__ == "__main__":
     # Use Flask dev server for local debugging; Docker runs the Flask CLI (flask run)
