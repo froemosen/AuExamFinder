@@ -13,46 +13,26 @@ def index():
 
 @app.route("/proxy_skema", methods=["POST"])
 def proxy_skema():
-    """
-    function handleSubmit(event) {
-    event.preventDefault();  // Prevent the default form submission
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    # Accept JSON (from fetch with Content-Type: application/json) or fallback to form data
+    data = request.get_json(silent=True)
+    if data is None:
+        form_data = request.form.to_dict()
+    else:
+        form_data = data
 
-    fetch("https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENV", {
-        method: "POST",
-        headers: {
-            "Origin": "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENV&sprog=da",
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams(data).toString()
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
-    })
-    .then(data => {
-        // Handle the response data
-        console.log("Success:", data);
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
-}
-"""
 
     url = "https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENV"
-    form_data = request.form.to_dict()
+
+    print(form_data)
 
     try:
         response = requests.post(url, data=form_data)
         response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
     except requests.RequestException as e:
         return f"An error occurred while contacting the remote server: {e}", 500
-    
-    print(response.content)
+
+
 
     return (response.content, response.status_code, response.headers.items())
 

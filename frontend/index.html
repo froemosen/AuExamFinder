@@ -11,22 +11,25 @@
     <script src="static/script.js" defer></script>
   </head>
   <body>
+    <section id="content_window" class="section" style="min-height: 80vh; max-width: 700px; margin: auto;"> 
+      <div id="statusMessages"></div>
+      <h1 class="title">Find dine registrerede eksamener</h1>
       <form onsubmit="handleSubmit(event)" method="post">
-          <h1>Opslag for mine tilmeldinger</h1>
           <table>
               <tbody><tr><td>ID</td><td><input type="text" style="WIDTH: 102px; HEIGHT: 22px" size="15" name="ID"></td><td>Indtast studienummer eller standardbrugernavn (AUxxxx)</td></tr>
               <tr><td>Password</td><td><input type="password" style="WIDTH: 102px; HEIGHT: 22px" size="15" name="password"></td><td>Samme password som til uni-login</td></tr>
           </tbody></table>
           <input type="submit" value="Søg" name="knap">
-       </form>
+      </form>
+    </section>
+      
 
 
         <footer class="footer has-text-centered">
         <p>© 2025 froemosen / Kristian Anton Hedegaard
         <br>
-        <a href="https://www.linkedin.com/in/kristian-anton-hedegaard/" target="_blank">LinkedIn</a> | 
-        <a href="https://github.com/froemosen" target="_blank">GitHub</a> |
         <a onclick = "cookies()">Cookie Policy</a>
+        <a onclick = "safety()">Is this site safe?</a>
         <br>
         <br>
         <p class="is-size-7">Site made with <i class="fa-solid fa-heart"></i> using Flask for the backend and Bulma for styling!</p>
