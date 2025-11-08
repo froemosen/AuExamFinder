@@ -14,27 +14,50 @@
     <section id="content_window" class="section" style="min-height: 80vh; max-width: 700px; margin: auto;"> 
       <div id="statusMessages"></div>
       <h1 class="title">Find dine registrerede eksamener</h1>
-      <form onsubmit="handleSubmit(event)" method="post">
-          <table>
-              <tbody><tr><td>ID</td><td><input type="text" style="WIDTH: 102px; HEIGHT: 22px" size="15" name="ID"></td><td>Indtast studienummer eller standardbrugernavn (AUxxxx)</td></tr>
-              <tr><td>Password</td><td><input type="password" style="WIDTH: 102px; HEIGHT: 22px" size="15" name="password"></td><td>Samme password som til uni-login</td></tr>
-          </tbody></table>
-          <input type="submit" value="Søg" name="knap">
+      <h2 class="subtitle">For studerende ved Aarhus Universitet.</h2>
+      <form onsubmit="handleSubmit(event)" method="post" novalidate class="panel is-info">
+        <p class="panel-heading">Søg med dit AU-login</p>
+        <div class="box">
+          <div class="field">
+            <label class="label">ID</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" name="ID" placeholder="AUxxxx eller studienummer" maxlength="50" required>
+              <span class="icon is-small is-left"><i class="fas fa-user" style="color: var(--bulma-info)"></i></span>
+            </div>
+            <p class="help">Indtast studienummer eller standardbrugernavn (AUxxxx)</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left">
+              <input class="input" type="password" name="password" placeholder="Dit AU password" required>
+              <span class="icon is-small is-left"><i class="fas fa-lock" style="color: var(--bulma-info);"></i></span>
+            </div>
+            <p class="help">Samme password som til f.eks. MitStudie</p>
+          </div>
+
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <button class="button is-info" type="submit" name="knap">Søg</button>
+            </div>
+          </div>
+        </div>
       </form>
     </section>
       
 
 
-        <footer class="footer has-text-centered">
-        <p>© 2025 froemosen / Kristian Anton Hedegaard
-        <br>
-        <a onclick = "cookies()">Cookie Policy</a>
-        <a onclick = "safety()">Is this site safe?</a>
-        <br>
-        <br>
-        <p class="is-size-7">Site made with <i class="fa-solid fa-heart"></i> using Flask for the backend and Bulma for styling!</p>
-        </p>
-        </footer>
+    <footer class="footer has-text-centered" style="padding-bottom: 1rem;">
+    <p>© 2025 froemosen / Kristian Anton Hedegaard
+    <br>
+    <a onclick = "cookies()">Cookie Policy</a>
+    &nbsp;|&nbsp;
+    <a onclick = "safety()">Is this site safe?</a>
+    <br>
+    <br>
+    <p class="is-size-7">Site made with <i class="fa-solid fa-heart"></i> using Flask for the backend and Bulma for styling!</p>
+    </p>
+    </footer>
       
   </body>
 </html>
