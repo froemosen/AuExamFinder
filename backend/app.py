@@ -13,31 +13,32 @@ def index():
 
 @app.route("/proxy_skema", methods=["POST"])
 def proxy_skema():
-
-    # Accept JSON (from fetch with Content-Type: application/json) or fallback to form data
-    data = request.get_json(silent=True)
-    if data is None:
-        form_data = request.form.to_dict()
-    else:
-        form_data = data
-
-
+    # Official URLs for exam timetables. You can check them out, to see how the original site works :)
     urlV = "https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENV"
     urlS = "https://timetable.scitech.au.dk/apps/skema/ElevSkema.asp?webnavn=EKSAMENS"
 
-    print(form_data)
+    # Accept JSON (from fetch with Content-Type: application/json) or fallback to form data
+    form_data = request.get_json(silent=True) # THIS FORM DATA IS HIGHLY CONFIDENTIAL - handle with care!
+    if form_data is None:
+        form_data = request.form.to_dict()
+
 
     try:
         responseV = requests.post(urlV, data=form_data)
         responseV.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        responseV = removeHeadSection(responseV)
     except requests.RequestException as e:
         return f"An error occurred while contacting the remote server: {e}", 500
     
     try:
         responseS = requests.post(urlS, data=form_data)
         responseS.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        responseS = removeHeadSection(responseS)
+        
     except requests.RequestException as e:
         return f"An error occurred while contacting the remote server: {e}", 500
+    
+    form_data = None # Clear form data from memory as it's sensitive. Ensures it is not accidentally accessed later.
 
     if (isAfterSummer()):
         response = responseV
@@ -55,6 +56,8 @@ def proxy_skema():
     # When an exam is not planned, it will be noted as "MDT" instead of "Mundtlig". Let's replace this.
     response._content = response._content.replace(b"MDT", b"Mundtlig")
 
+    
+
     return (response.content, response.status_code, response.headers.items())
 
 
@@ -63,5 +66,11 @@ def isAfterSummer():
     if today.month > 7:
         return True
     return False
+
+def removeHeadSection(response):
+    start_head = response._content.find(b"<head>")
+    end_head = response._content.find(b"</head>") + len(b"</head>")
+    response._content = response._content[:start_head] + response._content[end_head:]
+    return response
 
 
