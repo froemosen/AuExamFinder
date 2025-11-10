@@ -11,10 +11,22 @@
     <script src="static/script.js" defer></script>
   </head>
   <body>
+    
     <section id="content_window" class="section" style="min-height: 80vh; max-width: 750px; margin: auto;"> 
       <div id="statusMessages"></div>
       <h1 class="title">Find dine registrerede eksamener</h1>
       <h2 class="subtitle">For studerende ved Aarhus Universitet.</h2>
+      
+      <div class="panel" style="text-align: center;">
+        <a href="javascript:void(0);" onclick="window.open(currentOfficialAUExamLink(), '_blank');"
+           class="button is-outlined is-fullwidth is-info">
+          <span class="icon">
+            <i class="fas fa-external-link-alt"></i>
+          </span>
+          <span>Tryk hér for at søge gennem den officielle AU hjemmeside</span>
+        </a>
+      </div>
+
       <form onsubmit="handleSubmit(event)" method="post" novalidate class="panel is-info">
         <p class="panel-heading">Søg med dit AU-login</p>
         <div class="box">
@@ -47,7 +59,6 @@
 
       
 
-
     <footer class="footer has-text-centered" style="padding-bottom: 1rem;">
     <p>© 2025 froemosen / Kristian Anton Hedegaard
     <br>
@@ -59,6 +70,12 @@
     <p class="is-size-7">DENNE SIDE ER IKKE TILKNYTTET AARHUS UNIVERSITET</p>
     </p>
     </footer>
-      
+      <style>
+        html, body { height: 100%; }
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        /* let the main content grow and push the footer to the bottom */
+        #content_window { flex: 1 0 auto; }
+        footer.footer { flex-shrink: 0; }
+      </style>
   </body>
 </html>

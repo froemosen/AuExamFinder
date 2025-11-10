@@ -135,3 +135,12 @@ function prettifyResult() {
     container.innerHTML = "";
     container.appendChild(newContent);
 }
+
+function currentOfficialAUExamLink() {
+    const month = new Date().getMonth() + 1; // getMonth() is zero-based
+    if (month >= 7) {
+        return "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENV&sprog=da"; // Winter exams
+    } else {
+        return "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENS&sprog=da"; // Summer exams
+    }
+}
