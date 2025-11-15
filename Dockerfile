@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Copy the project
 COPY . /app
 
-EXPOSE 8000
+EXPOSE 5002
 
-# expose internal port 8000 for Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "backend.app:app"]
+# expose internal port 5002 for Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5002", "backend.app:app"]

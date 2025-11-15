@@ -1,17 +1,11 @@
 version: '3.8'
 services:
-  web:
+  au-exam-finder:
+    image: ghcr.io/froemosen/au-exam-finder:latest
     build: .
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
-
-  flask:
-    build: .
-    container_name: flask-backend
-    networks:
-      - tunnel
+    container_name: au-exam-finder
+    restart: always
     expose:
-      - "8000"          # internal port for cloudflared to reach
+      - "5002"          # internal port for cloudflared to reach
     environment:
       - FLASK_ENV=production
