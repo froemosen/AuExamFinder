@@ -20,6 +20,10 @@ function safety() {
 function handleSubmit(event) {
     event.preventDefault();  // Prevent the default form submission
 
+    let btn = event.target.querySelector("button[type='submit']");
+    btn.disabled = true;
+    btn.innerText = "Indlæser...";
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     fetch("/proxy_skema", {
