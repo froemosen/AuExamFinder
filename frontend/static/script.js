@@ -140,6 +140,11 @@ function prettifyResult() {
     });
 
     sortedCards.forEach(([card, _]) => {
+        const date = new Date(dates.get(card).split("-").reverse().join("-"));
+        if (date < new Date()) {
+            card.className = "panel is-success mb-6";
+        }
+
         newContent.appendChild(card);
     });
 
