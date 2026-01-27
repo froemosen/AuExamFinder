@@ -62,6 +62,7 @@ function handleResponse(htmlResponse) {
     }
 }
 
+let dates = new Map();
 
 function prettifyResult() {
     const container = document.getElementById("content_window");
@@ -128,7 +129,19 @@ function prettifyResult() {
             `;
         }
         
+        dates.set(card, date);
+        newContent.appendChild(card);
+    });
 
+    // Sort cards by date
+    const sortedCards = Array.from(dates.entries()).sort((a, b) => {
+        const dateA = new Date(a[1].split("-").reverse().join("-"));
+        const dateB = new Date(b[1].split("-").reverse().join("-"));
+        return dateA - dateB;
+    });
+    
+    newContent.innerHTML = "";
+    sortedCards.forEach(([card, _]) => {
         newContent.appendChild(card);
     });
 
@@ -138,7 +151,7 @@ function prettifyResult() {
 
 function currentOfficialAUExamLink() {
     const month = new Date().getMonth() + 1; // getMonth() is zero-based
-    if (month >= 7) {
+    if (month >= 7 || month <= 1) {
         return "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENV&sprog=da"; // Winter exams
     } else {
         return "https://timetable.scitech.au.dk/apps/skema/VaelgelevSkema.asp?webnavn=EKSAMENS&sprog=da"; // Summer exams
