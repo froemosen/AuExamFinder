@@ -51,6 +51,9 @@ def proxy_skema():
     response._content = response._content.replace(b"\xe6", b"\xc3\xa6") # 'æ'
     response._content = response._content.replace(b"\xf8", b"\xc3\xb8") # 'ø'
     response._content = response._content.replace(b"\xe5", b"\xc3\xa5") # 'å'
+    response._content = response._content.replace(b"\xc6", b"\xc3\x86") # 'Æ'
+    response._content = response._content.replace(b"\xd8", b"\xc3\x98") # 'Ø'
+    response._content = response._content.replace(b"\xc5", b"\xc3\x85") # 'Å'
     response.headers["Content-Type"] = "text/html; charset=UTF-8"
 
     # When an exam is not planned, it will be noted as "MDT" instead of "Mundtlig". Let's replace this.
