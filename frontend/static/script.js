@@ -22,7 +22,7 @@ function handleSubmit(event) {
 
     let btn = event.target.querySelector("button[type='submit']");
     btn.disabled = true;
-    btn.innerText = "Indlæser...";
+    btn.classList.add("is-loading");
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
@@ -44,7 +44,14 @@ function handleSubmit(event) {
     })
     .catch((error) => {
         console.error("Error:", error);
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.classList.remove("is-loading");
     });
+
+
+    
 }
 
 function setResponseHTML(htmlResponse) {
