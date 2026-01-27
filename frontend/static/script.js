@@ -115,6 +115,7 @@ function prettifyResult() {
                     <p><strong>Lokation:</strong> ${location}</p>
                 </div>
             `;
+            dates.set(card, date);
         }
         else {
             console.log("No table found for this heading. Not planned yet.");
@@ -129,8 +130,6 @@ function prettifyResult() {
             `;
         }
         
-        dates.set(card, date);
-        newContent.appendChild(card);
     });
 
     // Sort cards by date
@@ -139,8 +138,7 @@ function prettifyResult() {
         const dateB = new Date(b[1].split("-").reverse().join("-"));
         return dateA - dateB;
     });
-    
-    newContent.innerHTML = "";
+
     sortedCards.forEach(([card, _]) => {
         newContent.appendChild(card);
     });
