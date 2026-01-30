@@ -62,6 +62,10 @@ function handleResponse(htmlResponse) {
     if (htmlResponse.includes("Tilmeldinger for")) {
         setResponseHTML(htmlResponse)
         prettifyResult()
+
+        void (async () => {
+            await fetch('/api/successful_lookup');
+        })();
     }
     else {
         let statusMessages = document.getElementById("statusMessages");
@@ -70,6 +74,10 @@ function handleResponse(htmlResponse) {
         if (strongMatches) {
             statusMessages.innerHTML = strongMatches[1];
         }
+
+        void (async () => {
+            await fetch('/api/failed_lookup');
+        })();
     }
 }
 
@@ -139,6 +147,7 @@ function prettifyResult() {
                     <p><em>Ingen planlagte eksamener fundet.</em></p>
                 </div>
             `;
+            dates.set(card, "99-99-9999"); // Placeholder date for sorting
         }
         
     });
