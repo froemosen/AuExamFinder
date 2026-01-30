@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Note: template_folder and static_folder point to the frontend directory
 app = Flask(__name__, static_folder="../frontend/static", template_folder="../frontend")
@@ -95,6 +95,7 @@ def favicon():
 def log_api():
     log["log_api_calls"] += 1
     print("----- Backend Log Stats -----")
+    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S +0000')}]")
     for key, value in log.items():
         print(f"{key}: {value}")
     print("-----------------------------")
