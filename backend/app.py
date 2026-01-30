@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 from datetime import datetime, timezone
 
@@ -12,7 +12,8 @@ log = {
     "index_visits": 0,
     "proxy_requests": 0,
     "successful_lookups": 0,
-    "failed_lookups": 0
+    "failed_lookups": 0,
+    "log_api_calls": 0
 }
 
 @app.route("/")
